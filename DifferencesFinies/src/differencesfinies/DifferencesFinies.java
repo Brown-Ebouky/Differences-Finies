@@ -23,11 +23,12 @@ public class DifferencesFinies {
         // TODO code application logic here
 
        Calculs cal = new Calculs();
-       //Matrix res = cal.solveDir((x) -> {return 2*x;}, 0, 1, 10);
-       Matrix res2 = cal.solveIt((x) -> {return 2*x;}, 0, 1, 10);
+       Matrix res = cal.solveDir((x) -> {return x;}, 0, 1, 10);
+       //Matrix res2 = cal.solveIt((x) -> {return 2*x;}, 0, 1, 10);
        //Matrix res3 = cal.solveDir((x) -> {return x*Math.cos(x)+2*Math.sin(x);}, 0, Math.cos(1), 40);
-       //System.out.println(res);
-       System.out.println(res2);
+       System.out.println(res);
+       System.out.println(res.getSize()[0]);
+       //System.out.println(res2);
     }
 
 }
