@@ -1,0 +1,9 @@
+**************************************
+README
+**************************************
+
+- Il y'a 3 packages: Affichages, Interfaces, Tests, differences finies
+- Affichages qui contient la classe Affichage2D qui permet de créer toutes les interfaces graphiques utilisées pour représenter les résultats des solutions de la résolution en 2D
+- Interfaces qui contient les interfaces avec les différentes méthodes qui seront implémentées
+- Tests qui contient les classes qui permettent de faire les tests en question pour la méthode de résolution de l'ED. (En particulier, ici on a Test2D)
+- differencesFinies qui contient les classes où on fait les différents calculs. (En particulier, ici on a Calculs2D)
