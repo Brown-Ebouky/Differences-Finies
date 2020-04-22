@@ -5,14 +5,10 @@
  */
 package Interfaces;
 
-import java.util.ArrayList;
-import org.ujmp.core.Matrix;
-
 /**
  *
  * @author E_DinaBrown
  */
-public interface Solver2D {
-    
-    public Matrix solve2D(Fonction2D f, Matrix con, int n, int m);
+public interface Fonction2D {
+    double val(double x, double y);
 }

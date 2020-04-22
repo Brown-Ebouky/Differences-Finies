@@ -41,12 +41,13 @@ public class Calculs implements Solver {
         double h = 1.0 / n;
         int order = n - 1;
        
-        double[] x = new double[n + 1];
+        double[] x = giveX(n);
+        /* double[] x = new double[n + 1];
         x[0] = 0;
         x[n] = 1;
         for(int i = 1; i < n; i++)
             x[i] = i*h;
-       // System.out.println(x[8]);
+       // System.out.println(x[8]); */
         
         // Rempissement de la matrice
         Matrix dense = SparseMatrix.Factory.zeros(order, order);
