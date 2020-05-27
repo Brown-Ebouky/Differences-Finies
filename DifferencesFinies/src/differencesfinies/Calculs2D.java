@@ -21,11 +21,10 @@ public class Calculs2D implements Solver2D {
 
     @Override
     public Matrix solve2D(Fonction2D f, Matrix conn, int n, int m) {
-        //ArrayList<Double> con, 
+ 
         double[] x = Calculs.giveX(n);
         double[] y = Calculs.giveX(m);
-        // System.out.println(" Hey " + x[2]);
-
+   
         int order = (n - 1) * (m - 1);
         double h2 = 1.0 / Math.pow(n, 2);
         double k2 = 1.0 / Math.pow(m, 2);
@@ -45,11 +44,13 @@ public class Calculs2D implements Solver2D {
                 }
             }
             conn.setAsDouble(res.getAsDouble(i, 0), tempI, tempJ);
+            
             //secondMembre.setAsDouble(f.val(x[tempI], y[tempJ]), i, 0);
             tempJ++;
 
         }
-        System.out.println(conn);
+        
+        // System.out.println(conn);
         return res;
     }
 
@@ -86,7 +87,6 @@ public class Calculs2D implements Solver2D {
             temp = temp.minus(secondMembre);
             // Calcul de la norme du vecteur
             double norTemp = temp.norm2();
-            System.out.println(norTemp);
             flag = norTemp > tol;
         }
 
@@ -130,7 +130,6 @@ public class Calculs2D implements Solver2D {
             temp = temp.minus(secondMembre);
             // Calcul de la norme du vecteur
             double norTemp = temp.norm2();
-            System.out.println(norTemp);
             flag = norTemp > tol;
         }
         return res;
@@ -161,9 +160,6 @@ public class Calculs2D implements Solver2D {
             }
             temp++;
         }
-
-        System.out.println(dense);
-        // Matrix ma = null;
         return dense;
     }
 
@@ -181,7 +177,7 @@ public class Calculs2D implements Solver2D {
                     tempJ = 1;
                 }
             }
-            secondMembre.setAsDouble(f.val(x[tempI], y[tempJ]), i, 0);
+            secondMembre.setAsDouble(f.val(x[tempJ], y[tempI]), i, 0);
             // System.out.println(tempI + " " + tempJ + " " + x[tempI] + " " + x[tempJ] + "  " + f.val(x[tempI], y[tempJ]));
             tempJ++;
 
@@ -206,7 +202,7 @@ public class Calculs2D implements Solver2D {
             //con.get(temp2 + i) * h2 + 
             temp = temp + (n - 1);
         }
-        System.out.println(secondMembre);
+        // System.out.println(secondMembre);
         return secondMembre;
     }
 }

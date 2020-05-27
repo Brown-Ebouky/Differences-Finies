@@ -42,12 +42,7 @@ public class Calculs implements Solver {
         int order = n - 1;
        
         double[] x = giveX(n);
-        /* double[] x = new double[n + 1];
-        x[0] = 0;
-        x[n] = 1;
-        for(int i = 1; i < n; i++)
-            x[i] = i*h;
-       // System.out.println(x[8]); */
+        
         
         // Rempissement de la matrice
         Matrix dense = SparseMatrix.Factory.zeros(order, order);
@@ -63,7 +58,7 @@ public class Calculs implements Solver {
         Matrix secondMembre = DenseMatrix.Factory.zeros(order, 1);
         secondMembre.setAsDouble(Math.pow(h, 2)*f.val(x[1]) + a, 0, 0);
         secondMembre.setAsDouble(Math.pow(h, 2)*f.val(x[n-1]) + b, order - 1, 0);
-        //System.out.println(secondMembre.getAsDouble(order-1, 0));
+
         for(int i = 1; i < order - 1; i++)
             secondMembre.setAsDouble(Math.pow(h, 2) * f.val(x[i+1]), i, 0);
         
@@ -72,21 +67,34 @@ public class Calculs implements Solver {
         //On considère que la matrice qui sera renvoyée aura sur une colonne les résultats de la résolution et sur l'autre colonne, on aura 
         // le vecteur de x correspondant. 
         // Donc on crée une matrice de dimension order+2, 2
-        //Matrix res = DenseMatrix.Factory.zeros(order + 2, 2);
         Matrix res = DenseMatrix.Factory.zeros(order + 2, 1);
         res.setAsDouble(a, 0, 0);
         res.setAsDouble(b, order + 1, 0);
-        //res.setAsDouble(x[0], 0, 1);
-        //res.setAsDouble(x[n], order + 1, 1);
-        for(int i = 1; i < order+1; i++) {
+        for(int i = 1; i < order+1; i++) 
             res.setAsDouble(res0.getAsDouble(i-1, 0), i, 0);
-           // res.setAsDouble(x[i], i, 1);
-        }
+        
        return res;
     }
 
-    @Override
-    public Matrix solveIt(Fonction f, double a, double b, int n) {
+
+    
+    
+    public static double[] giveX(int n) {
+        double h = 1.0 / n;
+        double[] res = new double[n+1];
+        res[0] = 0;
+        res[n] = 1;
+        for(int i = 1; i < n; i++)
+            res[i] = i*h;
+        
+        return res;
+    }
+
+}
+
+
+/* 
+public Matrix solveIt(Fonction f, double a, double b, int n) {
         
         if(n <= 0) {
             return null;
@@ -154,16 +162,6 @@ public class Calculs implements Solver {
             res.setAsDouble(res0.getAsDouble(i-1, 0), i, 0);
        return res;
     }
-    
-    public static double[] giveX(int n) {
-        double h = 1.0 / n;
-        double[] res = new double[n+1];
-        res[0] = 0;
-        res[n] = 1;
-        for(int i = 1; i < n; i++)
-            res[i] = i*h;
-        
-        return res;
-    }
 
-}
+
+*/

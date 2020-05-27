@@ -18,7 +18,7 @@ public interface Solver {
     Cette interface permet de déterminer la méthode qui sera utilisée pour résoudre l'équation différentielle
     -u''=f sachant que u(0)=a, u(1)=b et en considérant un maillage sur n+1 points.
     */
-    Matrix solveIt(Fonction f, double a, double b, int n);
+    // Matrix solveIt(Fonction f, double a, double b, int n);
     
     // n: nombre de subdivisions
    
