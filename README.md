@@ -1,2 +1,2 @@
 # Differences-Finies
-Resoudre des équations différentielles en utilisant la méthode des différences finies
+Resoudre des équations différentielles de second dégré en utilisant la méthode des différences finies
