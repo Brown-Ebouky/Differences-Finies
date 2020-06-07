@@ -159,7 +159,7 @@ public class Test2D extends Application {
 
     }
 
-    private static Matrix matDiric(String s, int n, int m) {
+    public static Matrix matDiric(String s, int n, int m) {
         Matrix con = SparseMatrix.Factory.zeros(m + 1, n + 1);
         double x[] = giveX(n);
         double y[] = giveX(m);
@@ -196,8 +196,8 @@ public class Test2D extends Application {
     
     @Override
     public void start(Stage stage) {
-        plotError2DfN(4, 4, 1.0E-8, "XPlusY", "", stage);
-        plotError2DfN(4, 4, -1.0E-8, "XSinY", "", stage);
+        plotError2DfN(10, 10, 1.0E-8, "XPlusY", "", stage);
+        plotError2DfN(10, 10, -1.0E-8, "XSinY", "", stage);
         
 
     }

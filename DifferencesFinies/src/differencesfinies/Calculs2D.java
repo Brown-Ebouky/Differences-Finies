@@ -7,6 +7,7 @@ package differencesfinies;
 
 import Interfaces.Fonction2D;
 import Interfaces.Solver2D;
+
 import org.ujmp.core.DenseMatrix;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.SparseMatrix;
@@ -31,26 +32,25 @@ public class Calculs2D implements Solver2D {
 
         Matrix dense = mainMatrix(n, m, h2, k2);
         Matrix secondMembre = secondMembre(n, m, x, y, conn, h2, k2, f);
-
+        
         Matrix res = dense.solve(secondMembre);
 
-        int tempI = m - 1;
-        int tempJ = 1;
+        /* int tempJ = 1;
+        int tempI = 1;
         for (int i = 0; i < order; i++) {
             if (i % (n - 1) == 0) {
                 if (i != 0) {
-                    tempI--;
-                    tempJ = 1;
+                    tempJ++;
+                    tempI = 1;
                 }
             }
             conn.setAsDouble(res.getAsDouble(i, 0), tempI, tempJ);
             
             //secondMembre.setAsDouble(f.val(x[tempI], y[tempJ]), i, 0);
-            tempJ++;
+            tempI++;
 
-        }
+        } */
         
-        // System.out.println(conn);
         return res;
     }
 
@@ -146,20 +146,21 @@ public class Calculs2D implements Solver2D {
         }
 
         int temp = 0;
-        for (int i = 3; i < order; i++) {
-            dense.setAsDouble(-1.0 / k2, i, temp);
+        for (int i = n-1; i < order; i++) {
             dense.setAsDouble(-1.0 / k2, temp, i);
-            temp++;
+            dense.setAsDouble(-1.0 / k2, i, temp);
+            temp++;                
         }
 
         temp = 0;
-        for (int i = 1; i < order; i++) {
-            if (i % (n - 1) != 0) {
-                dense.setAsDouble(-1.0 / h2, i, temp);
+        for (int i = 1; i < order; i++){
+            if(i  % (n - 1) != 0) {
                 dense.setAsDouble(-1.0 / h2, temp, i);
+                dense.setAsDouble(-1.0 / h2, i, temp);
             }
             temp++;
         }
+        
         return dense;
     }
 
@@ -173,13 +174,13 @@ public class Calculs2D implements Solver2D {
         for (int i = 0; i < order; i++) {
             if (i % (n - 1) == 0) {
                 if (i != 0) {
-                    tempI++;
-                    tempJ = 1;
+                    tempJ++;
+                    tempI = 1;
                 }
             }
-            secondMembre.setAsDouble(f.val(x[tempJ], y[tempI]), i, 0);
+            secondMembre.setAsDouble(f.val(x[tempI], y[tempJ]), i, 0);
             // System.out.println(tempI + " " + tempJ + " " + x[tempI] + " " + x[tempJ] + "  " + f.val(x[tempI], y[tempJ]));
-            tempJ++;
+            tempI++;
 
         }
 
@@ -188,21 +189,20 @@ public class Calculs2D implements Solver2D {
         temp = (n - 1) * (m - 2);
         int temp2 = n + m + 1;
         for (int i = 0; i <= n - 2; i++) {
-            secondMembre.setAsDouble(secondMembre.getAsDouble(i, 0) + conn.getAsDouble(m, i + 1) / k2, i, 0);
-            secondMembre.setAsDouble(secondMembre.getAsDouble(temp + i, 0) + conn.getAsDouble(0, i + 1) / k2, temp + i, 0);
+            secondMembre.setAsDouble(secondMembre.getAsDouble(i, 0) + conn.getAsDouble(i+1, m) / k2, i, 0);
+            secondMembre.setAsDouble(secondMembre.getAsDouble(temp + i, 0) + conn.getAsDouble(i+1, 0) / k2, temp + i, 0);
             //con.get(i+1) * k2 + 
             //+ con.get(temp2 + i) * k2 
         }
         temp = 0;
         temp2 = 2 * n + m + 1;
         for (int i = 0; i <= m - 2; i++) {
-            secondMembre.setAsDouble(secondMembre.getAsDouble(temp, 0) + conn.getAsDouble(i + 1, 0) / h2, temp, 0);
-            secondMembre.setAsDouble(secondMembre.getAsDouble((n - 2) + temp, 0) + conn.getAsDouble(i + 1, n) / h2, (n - 2) + temp, 0);
+            secondMembre.setAsDouble(secondMembre.getAsDouble(temp, 0) + conn.getAsDouble(0, i+1) / h2, temp, 0);
+            secondMembre.setAsDouble(secondMembre.getAsDouble((n - 2) + temp, 0) + conn.getAsDouble(n, i+1) / h2, (n - 2) + temp, 0);
             //con.get(n+1+i) * h2 + 
             //con.get(temp2 + i) * h2 + 
             temp = temp + (n - 1);
         }
-        // System.out.println(secondMembre);
         return secondMembre;
     }
 }
